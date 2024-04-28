@@ -21,7 +21,7 @@ public class TimeTrack : MonoBehaviour
 
     void Start()
     {
-
+        
         Moedas = PlayerPrefs.GetInt("Coins");
         if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Map1")){
             BestTime = PlayerPrefs.GetFloat("BestTime1");
@@ -58,16 +58,20 @@ public class TimeTrack : MonoBehaviour
         switch (collision.gameObject.name) {
             case "StartLine":
             if(StartTimer==false){
-                StartTimer=true;
                 CheckPoint1=false;
                 CheckPoint2=false;
                 CheckPoint3=false;
                 CheckPoint4=false;
+                StartTimer=true;
                 LapCount=0;
             }
-            if(CheckPoint1 && CheckPoint2 && CheckPoint3 && CheckPoint4){
-                StartTimer=false;
+            if(CheckPoint1 && CheckPoint2 && CheckPoint3 && CheckPoint4 && StartTimer){
                 StartTimer=true;
+
+                CheckPoint1=false;
+                CheckPoint2=false;
+                CheckPoint3=false;
+                CheckPoint4=false;
                 
                 if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Map1")){
                     if(LapTime<35){
@@ -80,7 +84,6 @@ public class TimeTrack : MonoBehaviour
                     else Moedas += 7;
                 }
 
-                // incrementar moedas
                 if(BestTime==0){
                     BestTime=LapTime;
                 }
